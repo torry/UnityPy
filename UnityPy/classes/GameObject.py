@@ -13,6 +13,8 @@ class GameObject(EditorExtension):
     m_MeshRenderer: PPtr
     m_SkinnedMeshRender: PPtr
     m_MeshFilter: PPtr
+    m_Tag: int
+    m_IsActive: bool
 
     def __init__(self, reader):
         super().__init__(reader=reader)
@@ -48,3 +50,5 @@ class GameObject(EditorExtension):
 
         self.m_Layer = reader.read_int()
         self.name = reader.read_aligned_string()
+        self.m_Tag = reader.read_u_short()
+        self.m_IsActive = reader.read_boolean()
