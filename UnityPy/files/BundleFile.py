@@ -90,6 +90,7 @@ class BundleFile(File.File):
         compressedSize = reader.read_u_int()
         uncompressedSize = reader.read_u_int()
         self.dataflags = reader.read_u_int()
+        self._data_flags = self.dataflags
 
         version = self.get_version_tuple()
         # https://issuetracker.unity3d.com/issues/files-within-assetbundles-do-not-start-on-aligned-boundaries-breaking-patching-on-nintendo-switch
