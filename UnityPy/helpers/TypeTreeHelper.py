@@ -50,11 +50,11 @@ class TypeTreeNode(object):
         return f"<TypeTreeNode({self.m_Level} {self.m_Type} {self.m_Name})>"
 
 
-try:
-    from ..UnityPyBoost import TypeTreeNode, read_typetree as read_typetree_c
-except:
-    read_typetree_c = None
-
+#try:
+#    from ..UnityPyBoost import TypeTreeNode, read_typetree as read_typetree_c
+#except:
+#    read_typetree_c = None
+read_typetree_c = None
 
 def node_dict_to_node_cls(nodes: List[dict]) -> List[TypeTreeNode]:
     """Converts all dict-type nodes into TypeTreeNodes
@@ -160,11 +160,11 @@ def read_typetree(
     obj = read_value(nodes, reader, c_uint32(0))
 
     read = reader.Position - reader.byte_start
-    if read != reader.byte_size:
-        raise TypeTreeError(
-            f"Error while read type, read {read} bytes but expected {reader.byte_size} bytes",
-            nodes,
-        )
+    #if read != reader.byte_size:
+    #    raise TypeTreeError(
+    #        f"Error while read type, read {read} bytes but expected {reader.byte_size} bytes",
+    #        nodes,
+    #    )
 
     return obj
 

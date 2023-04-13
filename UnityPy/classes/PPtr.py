@@ -23,7 +23,7 @@ class PPtr:
         self._version = reader.version2
         self.index = -2
         self.file_id = reader.read_int()
-        self.path_id = reader.read_int() if self._version < 14 else reader.read_long()
+        self.path_id = reader.read_u_int() if self._version < 14 else reader.read_u_long()
         self.assets_file = reader.assets_file
         self._obj = None
 
@@ -42,7 +42,7 @@ class PPtr:
                 environment = self.assets_file.environment
                 external_name = self.external_name
                 # try to find it in the already registered cabs
-                manager = environment.get_cab(external_name)
+                manager = environment.get_cab(external_name.lower())
 
                 if not manager:
                     # guess we have to try to find it as file then
