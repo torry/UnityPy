@@ -166,7 +166,8 @@ class SerializedType:
                     writer.write_string_to_null(self.m_NameSpace)
                     writer.write_string_to_null(self.m_AssemblyName)
                 else:
-                    writer.write_int_array(self.type_dependencies)
+                    writer.write_int_array(self.type_dependencies, True)
+                    #print('LLLL write', self.type_dependencies)
 
 
 class SerializedFile(File.File):
@@ -353,8 +354,8 @@ class SerializedFile(File.File):
 
     def read_type_tree_blob(self):
         reader = self.reader
-        number_of_nodes = self.reader.read_int()
-        string_buffer_size = self.reader.read_int()
+        number_of_nodes = self.reader.read_u_int()
+        string_buffer_size = self.reader.read_u_int()
 
         type = f"{reader.endian}hBBIIiii"
         keys = [
@@ -589,9 +590,9 @@ class SerializedFile(File.File):
         ]
 
         # number of nodes
-        writer.write_int(len(nodes))
+        writer.write_u_int(len(nodes))
         # string buffer size
-        writer.write_int(string_buffer.Length)
+        writer.write_u_int(string_buffer.Length)
 
         # nodes
         for i, node in enumerate(nodes):
@@ -618,8 +619,8 @@ class SerializedFile(File.File):
         # string buffer
         writer.write(string_buffer.bytes)
 
-        if self.header.version >= 21:
-            writer.write_bytes(b"\x00" * 4)
+        #if self.header.version >= 21:
+        #    writer.write_bytes(b"\x00" * 4)
 
 
 def read_string(string_buffer_reader: EndianBinaryReader, value: int) -> str:

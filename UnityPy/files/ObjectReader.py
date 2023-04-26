@@ -37,12 +37,12 @@ class ObjectReader:
 
         # AssetStudio ObjectInfo init
         if assets_file.big_id_enabled:
-            self.path_id = reader.read_u_long()
+            self.path_id = reader.read_long()
         elif header.version < 14:
-            self.path_id = reader.read_u_int()
+            self.path_id = reader.read_int()
         else:
             reader.align_stream()
-            self.path_id = reader.read_u_long()
+            self.path_id = reader.read_long()
 
         if header.version >= 22:
             self.byte_start_offset = (self.reader.real_offset(), 8)
